@@ -43,6 +43,15 @@ Al finalizar retorna la lista creada.
 
 List* crea_lista() {
    List* L = create_list();
+   for (int k = 1; k < 10; k++){
+      int *lista = (int*) malloc(sizeof(int));
+      if (lista == NULL){
+         return NULL;
+      }
+      *lista = k;
+      pushBack(L, lista);
+
+   }
    return L;
 }
 
@@ -51,8 +60,19 @@ Ejercicio 2.
 Crea una función que reciba una lista de enteros (int*) y 
 retorne la suma de sus elementos.
 */
+
+
 int sumaLista(List *L) {
-   return 0;
+   int suma = 0;
+
+   int *valor = (int *) first(L);
+    
+   while (valor != NULL) {
+      suma += *valor;  
+      valor = (int *) next(L);  
+   }
+
+   return suma;
 }
 
 /*
@@ -65,7 +85,18 @@ posiciona en el elemento anterior.
 */
 
 void eliminaElementos(List*L, int elem){
+   if(L == NULL) return; 
 
+   int* actual = first(L); 
+   while(actual != NULL){
+      if(*actual == elem){
+         popCurrent(L); 
+         actual = next(L); 
+      }
+      else{
+         actual = next(L); 
+      }
+   }
 }
 
 /*
@@ -86,6 +117,19 @@ paraéntesis balanceados. Retorna 1 si están balanceados,
 */
 
 int parentesisBalanceados(char *cadena) {
-   return 0;
+   int cont = 0;
+
+   for(int k = 0; cadena[k] != '\0'; k++){
+      if (cadena[k] == '('){
+         cont++;
+      }
+      else if (cadena[k] == ')'){
+         cont--;
+         if (cont < 0){
+            return 0;
+         }
+      }
+   }
+   return (cont == 0);
 }
 
