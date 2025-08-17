@@ -43,7 +43,7 @@ Al finalizar retorna la lista creada.
 
 List* crea_lista() {
    List* L = create_list();
-   for (int k = 1; k < 10; k++){
+   for (int k = 1; k < 11; k++){
       int *lista = (int*) malloc(sizeof(int));
       if (lista == NULL){
          return NULL;
@@ -117,19 +117,38 @@ paraéntesis balanceados. Retorna 1 si están balanceados,
 */
 
 int parentesisBalanceados(char *cadena) {
-   int cont = 0;
+   int n = strlen(cadena);
+   char *stack = malloc(n); // pila para guardar los símbolos de apertura
+   if (!stack) return 0;
 
-   for(int k = 0; cadena[k] != '\0'; k++){
-      if (cadena[k] == '('){
-         cont++;
+   int top = -1;
+
+   for (int i = 0; cadena[i] != '\0'; i++) {
+      char c = cadena[i];
+
+        // Caso apertura → apilamos
+      if (c == '(' || c == '[' || c == '{') {
+         stack[++top] = c;
       }
-      else if (cadena[k] == ')'){
-         cont--;
-         if (cont < 0){
-            return 0;
-         }
-      }
-   }
-   return (cont == 0);
+        // Caso cierre → verificamos
+      else if (c == ')' || c == ']' || c == '}') {
+         if (top == -1) { // no hay nada que cerrar
+               free(stack);
+               return 0;
+            }
+         char apertura = stack[top--]; // desapilar
+
+            if ((c == ')' && apertura != '(') ||
+               (c == ']' && apertura != '[') ||
+               (c == '}' && apertura != '{')) {
+               free(stack);
+               return 0; // cierre incorrecto
+            }
+        }
+    }
+
+   int balanceado = (top == -1); // pila vacía = todo correcto
+   free(stack);
+
+   return balanceado;
 }
-

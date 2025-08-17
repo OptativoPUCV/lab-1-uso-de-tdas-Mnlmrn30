@@ -8,3 +8,9 @@ Sat, Aug 16, 2025 10:16:42 PM:
  tests:  5|3
 total_score: 40/70
 29fef1e
+Sat, Aug 16, 2025 10:21:20 PM: 
+ exercises.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
+ tests:  8|1
+total_score: 60/70
+414f350
