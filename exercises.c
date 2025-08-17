@@ -24,6 +24,7 @@ void imprime_lista(List *L) {
 
 //Ojo que la pila se vacía al imprimir y se imprime en orden inverso
 //NO MODIFICAR
+
 void imprime_y_vacia_pila(Stack *P) {
    void *dato;
    printf("[");
@@ -132,7 +133,7 @@ paraéntesis balanceados. Retorna 1 si están balanceados,
 
 int parentesisBalanceados(char *cadena) {
    int n = strlen(cadena);
-   char *stack = malloc(n); // pila para guardar los símbolos de apertura
+   char *stack = malloc(n);
    if (!stack) return 0;
 
    int top = -1;
@@ -140,28 +141,27 @@ int parentesisBalanceados(char *cadena) {
    for (int i = 0; cadena[i] != '\0'; i++) {
       char c = cadena[i];
 
-        // Caso apertura → apilamos
       if (c == '(' || c == '[' || c == '{') {
          stack[++top] = c;
       }
-        // Caso cierre → verificamos
+      
       else if (c == ')' || c == ']' || c == '}') {
-         if (top == -1) { // no hay nada que cerrar
+         if (top == -1) { 
                free(stack);
                return 0;
             }
-         char apertura = stack[top--]; // desapilar
+         char apertura = stack[top--]; 
 
             if ((c == ')' && apertura != '(') ||
                (c == ']' && apertura != '[') ||
                (c == '}' && apertura != '{')) {
                free(stack);
-               return 0; // cierre incorrecto
+               return 0;
             }
         }
     }
 
-   int balanceado = (top == -1); // pila vacía = todo correcto
+   int balanceado = (top == -1);
    free(stack);
 
    return balanceado;
